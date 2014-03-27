@@ -1,17 +1,17 @@
 class composer::install {
 
   exec { 'php-install-composer':
-    cwd     => "/opt/phpfarm/inst/current-bin",
-    command => 'curl -s https://getcomposer.org/installer | php',
+    cwd     => "/home/vagrant",
+    command => '/usr/bin/curl -s https://getcomposer.org/installer | php',
     timeout => 0,
-    creates => "/opt/phpfarm/inst/current-bin/composer.phar",
+    creates => "/home/vagrant/composer.phar",
     require => Class['php::install'],
   }
 
 
   file { '/usr/bin/composer':
     ensure  => link,
-    target  => "/opt/phpfarm/inst/current-bin/composer.phar",
+    target  => "/home/vagrant/composer.phar",
     require => Exec['php-install-composer'],
   }
 }
